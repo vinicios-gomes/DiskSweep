@@ -32,8 +32,8 @@ VERSION=1.2.0 ./scripts/make-dmg.sh      # → build/DiskSweep-1.2.0.dmg + .sha2
 
 ## Assinatura e notarização
 
-Hoje o app usa **assinatura ad hoc**: o macOS mostra um aviso na primeira abertura (clique direito → Abrir, ou
-`xattr -dr com.apple.quarantine /Applications/DiskSweep.app`). Para distribuição sem aviso é preciso uma conta Apple Developer:
+Hoje o app usa **assinatura ad hoc**: o macOS mostra um aviso na primeira abertura (Ajustes do Sistema → Privacidade e Segurança → Abrir Mesmo Assim, ou
+`xattr -dr com.apple.quarantine /Applications/DiskSweep.app`; o clique direito → Abrir não funciona mais no macOS recente). Para distribuição sem aviso é preciso uma conta Apple Developer:
 
 1. Exporte o certificado *Developer ID Application* como `.p12` e guarde em Secrets (`DEVELOPER_ID_CERT_BASE64`, `DEVELOPER_ID_CERT_PASSWORD`).
 2. No `release.yml`, importe-o num keychain temporário antes do build e exporte `CODESIGN_IDENTITY="Developer ID Application: Seu Nome (TEAMID)"` — o `build-app.sh` já usa essa variável.
@@ -41,3 +41,14 @@ Hoje o app usa **assinatura ad hoc**: o macOS mostra um aviso na primeira abertu
 
 ## Se um check for renomeado
 O ruleset `prod` exige os checks pelo nome (`Lint`, `Unit Tests`). Ao renomear jobs, atualize em Settings → Rules → Rulesets → prod.
+
+## Distribuição pelo Homebrew Cask
+
+O app é distribuído por um tap próprio: [`vinicios-gomes/homebrew-disksweep`](https://github.com/vinicios-gomes/homebrew-disksweep).
+
+- O cask (`Casks/disksweep.rb`) aponta para o `.dmg` da GitHub Release e confere o `sha256`; o `postflight_steps` remove a
+  quarentena porque o app não é notarizado.
+- O workflow `bump.yml` do tap roda a cada 6 horas (ou manualmente) e atualiza `version` e `sha256` para a release mais recente.
+  Não usa segredos: lê as releases públicas e o arquivo `.dmg.sha256` anexado pelo workflow Release.
+- Não há passo extra no processo de release: criar a tag basta; o tap acompanha sozinho.
+- Para instalar: `brew install --cask vinicios-gomes/disksweep/disksweep`.
