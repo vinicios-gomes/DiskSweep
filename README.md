@@ -41,7 +41,9 @@ swift build && swift test # plain SwiftPM (needs a complete Swift toolchain / Xc
 ## Install
 **Homebrew (recommended)**
 ```bash
-brew install --cask vinicios-gomes/disksweep/disksweep
+brew tap vinicios-gomes/disksweep
+brew trust --cask vinicios-gomes/disksweep/disksweep   # Homebrew 7+ requires trusting third-party casks
+brew install --cask disksweep
 ```
 Upgrade with `brew upgrade --cask disksweep`, remove with `brew uninstall --cask --zap disksweep`.
 

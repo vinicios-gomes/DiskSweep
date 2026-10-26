@@ -27,7 +27,9 @@ macOS 14+ e Swift 5.10+ (Xcode ou Command Line Tools). Alguns locais (ex.: `~/Li
 ## Instalar
 **Homebrew (recomendado)**
 ```bash
-brew install --cask vinicios-gomes/disksweep/disksweep
+brew tap vinicios-gomes/disksweep
+brew trust --cask vinicios-gomes/disksweep/disksweep   # Homebrew 7+ exige confiar em casks de terceiros
+brew install --cask disksweep
 ```
 Atualize com `brew upgrade --cask disksweep` e remova com `brew uninstall --cask --zap disksweep`.
 
