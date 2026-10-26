@@ -23,3 +23,6 @@ Shell code must run on macOS's bash 3.2 (no associative arrays, no `mapfile`).
 
 ## Pull requests
 Describe what changes and how you tested it. For anything that deletes data, list the exact paths affected.
+
+## Branches and releases
+`main` is production and protected: open a PR from a topic branch; **Lint** and **Unit Tests** must pass. Releases are cut from `main` with `./scripts/release.sh X.Y.Z` — see `Docs/RELEASING.md`.

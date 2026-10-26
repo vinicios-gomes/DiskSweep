@@ -1,0 +1,26 @@
+name: Lint
+on:
+  push: { branches: [main] }
+  pull_request:
+concurrency:
+  group: lint-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  lint:
+    name: Lint
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Shell syntax (bash 3.2 compatible)
+        run: for f in shell/lib/*.sh shell/cleaners/*.sh shell/limpar-disco.sh scripts/*.sh; do /bin/bash -n "$f"; done
+      - name: Install ShellCheck
+        run: brew install shellcheck
+      - name: ShellCheck
+        run: shellcheck --severity=warning -x shell/lib/*.sh shell/cleaners/*.sh shell/limpar-disco.sh scripts/*.sh
+      - name: Cleaners answer the contract
+        run: |
+          for f in shell/cleaners/*.sh; do
+            "$f" name >/dev/null && "$f" kind >/dev/null || { echo "contract violation: $f"; exit 1; }
+          done
+      - name: Info.plist is valid
+        run: plutil -lint Resources/Info.plist

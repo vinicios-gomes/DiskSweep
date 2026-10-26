@@ -1,0 +1,2 @@
+# CLEANER_* são lidas pelos scripts "strategy" que cada cleaner carrega com `source`.
+disable=SC2034
