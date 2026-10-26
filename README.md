@@ -38,8 +38,17 @@ swift build && swift test # plain SwiftPM (needs a complete Swift toolchain / Xc
 > `build-app.sh` falls back to `swiftc` when the installed SwiftPM cannot link its manifest
 > (seen with some Command Line Tools installs).
 
-## Download
-Grab the latest `.dmg` from [Releases](https://github.com/vinicios-gomes/DiskSweep/releases). The app is ad-hoc signed (not notarized yet): on first launch right-click → Open.
+## Install
+**Homebrew (recommended)**
+```bash
+brew install --cask vinicios-gomes/disksweep/disksweep
+```
+Upgrade with `brew upgrade --cask disksweep`, remove with `brew uninstall --cask --zap disksweep`.
+
+**Manual:** download the `.dmg` from [Releases](https://github.com/vinicios-gomes/DiskSweep/releases) and drag the app to Applications.
+DiskSweep is ad-hoc signed and **not notarized**, so macOS blocks the first launch ("Apple could not verify…").
+Open System Settings → Privacy & Security → **Open Anyway**, or run
+`xattr -dr com.apple.quarantine /Applications/DiskSweep.app`. The Homebrew cask does this for you.
 
 ## Project layout
 ```

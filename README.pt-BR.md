@@ -24,6 +24,18 @@ Cada item pode ser aberto e detalhado, para você escolher exatamente o que apag
 macOS 14+ e Swift 5.10+ (Xcode ou Command Line Tools). Alguns locais (ex.: `~/Library/Containers`) podem exigir
 **Acesso Total ao Disco** para o app: Ajustes do Sistema → Privacidade e Segurança → Acesso Total ao Disco.
 
+## Instalar
+**Homebrew (recomendado)**
+```bash
+brew install --cask vinicios-gomes/disksweep/disksweep
+```
+Atualize com `brew upgrade --cask disksweep` e remova com `brew uninstall --cask --zap disksweep`.
+
+**Manual:** baixe o `.dmg` em [Releases](https://github.com/vinicios-gomes/DiskSweep/releases) e arraste o app para Applications.
+O app tem assinatura ad hoc e **não é notarizado**, então o macOS bloqueia a primeira abertura ("A Apple não pôde verificar…").
+Abra Ajustes do Sistema → Privacidade e Segurança → **Abrir Mesmo Assim**, ou rode
+`xattr -dr com.apple.quarantine /Applications/DiskSweep.app`. O cask do Homebrew faz isso por você.
+
 ## Compilar e executar
 ```bash
 git clone https://github.com/vinicios-gomes/DiskSweep.git
