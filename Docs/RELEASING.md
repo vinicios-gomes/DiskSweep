@@ -51,4 +51,9 @@ O app é distribuído por um tap próprio: [`vinicios-gomes/homebrew-disksweep`]
 - O workflow `bump.yml` do tap roda a cada 6 horas (ou manualmente) e atualiza `version` e `sha256` para a release mais recente.
   Não usa segredos: lê as releases públicas e o arquivo `.dmg.sha256` anexado pelo workflow Release.
 - Não há passo extra no processo de release: criar a tag basta; o tap acompanha sozinho.
-- Para instalar: `brew install --cask vinicios-gomes/disksweep/disksweep`.
+- Para instalar (Homebrew 7+ exige confiar em casks de terceiros):
+  ```bash
+  brew tap vinicios-gomes/disksweep
+  brew trust --cask vinicios-gomes/disksweep/disksweep
+  brew install --cask disksweep
+  ```
