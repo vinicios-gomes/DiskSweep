@@ -1,0 +1,19 @@
+name: Unit Tests
+on:
+  push: { branches: [main] }
+  pull_request:
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  tests:
+    name: Unit Tests
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: swift build
+      - name: Unit tests
+        run: swift test
+      - name: App bundle builds
+        run: ./scripts/build-app.sh
