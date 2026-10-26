@@ -1,9 +1,10 @@
 #!/bin/bash
 # Cria e envia a tag vX.Y.Z a partir da main; o workflow "Release" gera o .dmg e publica.
-# Uso: ./scripts/release.sh 1.2.0
+# Uso: ./scripts/release.sh 1.2.0        (release)
+#      ./scripts/release.sh 0.1.0-rc.1   (pré-release: qualquer sufixo após "-")
 set -euo pipefail
 cd "$(dirname "$0")/.."
-VERSION="${1:-}"; [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "uso: $0 X.Y.Z" >&2; exit 2; }
+VERSION="${1:-}"; [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.]+)?$ ]] || { echo "uso: $0 X.Y.Z[-sufixo]" >&2; exit 2; }
 TAG="v$VERSION"
 
 [[ "$(git rev-parse --abbrev-ref HEAD)" == "main" ]] || { echo "Troque para a branch main." >&2; exit 1; }
