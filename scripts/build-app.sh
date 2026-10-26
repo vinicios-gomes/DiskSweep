@@ -11,8 +11,8 @@ if swift build -c release >/dev/null 2>&1; then
   cp "$(swift build -c release --show-bin-path)/DiskSweep" "$BIN"; echo "compilado com SwiftPM"
 else
   echo "SwiftPM indisponível neste toolchain; compilando com swiftc"
-  swiftc -O -parse-as-library -swift-version 5 -target arm64-apple-macosx14.0 \
-    $(find Sources/DiskSweep -name '*.swift') -o "$BIN"
+  find Sources/DiskSweep -name '*.swift' -print0 | xargs -0 \
+    swiftc -O -parse-as-library -swift-version 5 -target arm64-apple-macosx14.0 -o "$BIN"
 fi
 
 cp Resources/Info.plist "$APP/Contents/Info.plist"
