@@ -21,7 +21,7 @@ branch de trabalho ──► Pull Request ──► Lint + Unit Tests ──► 
    - roda `swift test`;
    - compila o app com a versão da tag (`CFBundleShortVersionString`) e o número do run (`CFBundleVersion`);
    - gera `DiskSweep-X.Y.Z.dmg` (com atalho para Applications) e o `.sha256`;
-   - cria a GitHub Release com notas automáticas. Tags com sufixo (`v1.2.0-rc1`) viram *pre-release*.
+   - cria a GitHub Release com notas automáticas. Tags com sufixo (`./scripts/release.sh 0.1.0-rc.1`) viram *pre-release*; o app grava só `0.1.0` como versão do bundle.
 
 ## Gerar o .dmg localmente
 

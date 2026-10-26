@@ -17,7 +17,7 @@ fi
 
 cp Resources/Info.plist "$APP/Contents/Info.plist"
 if [[ -n "${VERSION:-}" ]]; then   # ex.: VERSION=1.2.0 (vem da tag vX.Y.Z no release)
-  plutil -replace CFBundleShortVersionString -string "$VERSION" "$APP/Contents/Info.plist"
+  plutil -replace CFBundleShortVersionString -string "${VERSION%%-*}" "$APP/Contents/Info.plist"   # sem sufixo -rc.N (formato exigido pelo macOS)
   plutil -replace CFBundleVersion -string "${BUILD_NUMBER:-1}" "$APP/Contents/Info.plist"
 fi
 cp Resources/AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
