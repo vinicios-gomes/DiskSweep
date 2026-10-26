@@ -16,7 +16,12 @@ else
 fi
 
 cp Resources/Info.plist "$APP/Contents/Info.plist"
+if [[ -n "${VERSION:-}" ]]; then   # ex.: VERSION=1.2.0 (vem da tag vX.Y.Z no release)
+  plutil -replace CFBundleShortVersionString -string "$VERSION" "$APP/Contents/Info.plist"
+  plutil -replace CFBundleVersion -string "${BUILD_NUMBER:-1}" "$APP/Contents/Info.plist"
+fi
 cp Resources/AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
 cp -R shell "$APP/Contents/Resources/shell"
-codesign --force --sign - "$APP" 2>&1 | tail -1
+# CODESIGN_IDENTITY="Developer ID Application: ..." para assinar de verdade; padrão = assinatura ad hoc
+codesign --force --sign "${CODESIGN_IDENTITY:--}" "$APP" 2>&1 | tail -1
 echo "OK: $APP"
